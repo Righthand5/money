@@ -21,6 +21,7 @@ export default {
   height:100vh;
 }
 .content{
+  boeder:1px solid blue;
   overflow: auto;
   flex-grow:1;//让蓝色的地方尽量占满
 }
