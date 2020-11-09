@@ -16,7 +16,7 @@
     <div>
       <label class="notes">
         <span class="name">备注</span>
-        <input type="text">
+        <input type="text" placeholder="在这里输入备注">
       </label>
     </div>
     <div>
@@ -39,8 +39,8 @@
         <button>7</button>
         <button>8</button>
         <button>9</button>
-        <button>OK</button>
-        <button>0</button>
+        <button class="ok">OK</button>
+        <button class="zero">0</button>
         <button>.</button>
       </div>
     </div>
@@ -55,8 +55,91 @@ export default {
 </script>
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
-  p{
-    color:$red;
+  .numberPad{
+    .output{
+      font-size: 36px;
+      font-family: Consolas,monospace;
+      padding: 9px 16px;
+      text-align:right;
+    }
+    .buttons{
+      @extend %x;//我继承%x
+      > button{
+        width:  25%;
+        height: 64px;
+        float: left;
+        &.ok{
+          height: 64*2px;
+          float: right;
+        }
+        &.zero{
+          width: 25*2%;
+        }
+      }
+    }
   }
-
+  .types{
+    background: #c4c4c4;
+    display: flex;
+    text-align: center;
+    font-size: 24px;
+    > li{
+      width: 50%;
+      height: 64px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      &.selected::after{
+        content: '';
+        position: absolute;
+        bottom:0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: #333;
+      }
+    }
+  }
+  .tags{
+    font-size: 14px;
+    > .current{
+      display: flex;
+      > li{
+        background: #d9d9d9;
+        $h:24px;
+        height: $h;
+        line-height: $h;
+        border-radius: ($h/2);
+        padding: 0 16px;
+        margin-right:12px;
+      }
+    }
+    > .new{
+      padding-top:16px;
+      button{
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid;
+        color: #999;
+      }
+    }
+  }
+  .notes{
+    font-size: 14px;
+    background: #f5f5f5;
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
+    .name{
+      padding-right: 16px;
+    }
+    input{
+      height: 64px;
+      flex-grow: 1;
+      background: transparent;
+      border:none;
+      padding-right: 16px;
+    }
+  }
 </style>
