@@ -29,7 +29,6 @@ export default {
   > .current{
     display: flex;
     flex-wrap: wrap;
-    overflow: auto;
     > li{
       background: #d9d9d9;
       $h:24px;
@@ -48,6 +47,7 @@ export default {
       border: none;
       border-bottom: 1px solid;
       color: #999;
+      padding: 0 4px;
     }
   }
 }
