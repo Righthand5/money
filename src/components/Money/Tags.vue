@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button>新增标签</button>
+      <button @click="createTag">新增标签</button>
     </div>
     <!--      由于我们使用的是scope的所以名字取得规范一点-->
     <ul class="current">
@@ -19,7 +19,7 @@ import Vue from 'vue';
 import {Component,Prop} from 'vue-property-decorator'
 @Component
  export default class Tags extends Vue{
-  @Prop() dataSource: string[] | undefined;//我只可以装自负床
+  @Prop() readonly dataSource: string[] | undefined;//我只可以装自负床
   selectedTags: string[] = [];
   toggle(tag: string){
     const index = this.selectedTags.indexOf(tag);
@@ -27,6 +27,16 @@ import {Component,Prop} from 'vue-property-decorator'
         this.selectedTags.splice(index,1);
     }else{
       this.selectedTags.push(tag);
+    }
+  }
+  createTag(){
+    const name = window.prompt('请输入标签名');
+    if(name === ''){
+      window.alert('标签名不可以为空');
+    }else{
+      if(this.dataSource) {
+        this.$emit('update:dataSource',[...this.dataSource,name]);
+      }
     }
   }
 
