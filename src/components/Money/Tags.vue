@@ -5,9 +5,9 @@
     </div>
     <!--      由于我们使用的是scope的所以名字取得规范一点-->
     <ul class="current">
-      <li v-for="tag in dataSource" :key="tag"
+      <li v-for="tag in dataSource" :key="tag.id"
           :class = "{selected:selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag)">{{tag}}
+          @click="toggle(tag)">{{tag.name}}
       </li>
 
     </ul>
