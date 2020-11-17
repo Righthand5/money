@@ -16,5 +16,6 @@ body{
   line-height: 1.5;/*导航栏的默认行高*/
   font-family: $font-hei;
   font-size: 16px;
+  background: #f5f5f5;
 }
 </style>
