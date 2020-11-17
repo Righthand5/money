@@ -6,7 +6,7 @@
     <span class = "rightIcon"></span>
   </div>
   <div class = "from-wrapper">
-  <FormItem field-name="标签名" placeholder="请输入标签名"/>
+  <FormItem :value="tag.name" field-name="标签名" placeholder="请输入标签名"/>
   </div>
   <div class = "button-wrapper">
     <Button>删除标签</Button>
@@ -24,6 +24,7 @@ import Button from '@/components/Button.vue';
   components: {Button, FormItem}
 })
 export default class EditLabel extends Vue{
+  tag?: { id: string;name: string } = undefined;//默认等于undefined，等拿到后赋值
   created(){
     const id = this.$route.params.id;
     tagListModel.fetch();
@@ -31,7 +32,7 @@ export default class EditLabel extends Vue{
     //返回的是一个数组
     const tag = tags.filter(t => t.id ===id)[0];
     if(tag){
-        console.log(tag)
+        this.tag = tag
     }else{
         this.$router.replace('/404')
     }
