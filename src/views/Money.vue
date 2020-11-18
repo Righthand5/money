@@ -24,7 +24,7 @@ import tagListModel from '@/models/tagListModel';
 //const model = require('@/model.js');
 //只要在刚开始的时候写上断言-（as RecordItem）后面就会方便
 const recordList= recordListModel.fetch();
-const tagList = tagListModel.fetch();
+
 
 
 @Component({
@@ -32,7 +32,7 @@ const tagList = tagListModel.fetch();
     Types, NumberPad}
 })
 export default class Money extends Vue {
-  tags = tagList;
+  tags = window.tagList;
   recordList: RecordItem[] = recordList;
   record: RecordItem = {
     tags: [],
@@ -50,10 +50,7 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    //深拷贝
-    const record2: RecordItem = recordListModel.clone(this.record);
-    record2.createdAt = new Date();
-    this.recordList.push(record2);
+    recordListModel.create(this.record);
   }
 
   @Watch('recordList')
