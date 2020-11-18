@@ -8,7 +8,7 @@ const recordListModel = {
         this.data =JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];//强制类型声明
         return this.data
     },
-    save(data: RecordItem[]) {
+    save() {
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
     },
 };
