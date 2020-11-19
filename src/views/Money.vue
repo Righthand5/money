@@ -1,6 +1,5 @@
 <template>
   <Layout class-prefix="layout">
-    {{ recordList }}
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <div class = "notes">
@@ -19,11 +18,6 @@ import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
-//const model = require('@/model.js');
-//只要在刚开始的时候写上断言-（as RecordItem）后面就会方便
-
-
-
 @Component({
   components: {FormItem, Tags,
     Types, NumberPad},

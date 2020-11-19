@@ -17,22 +17,24 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Button from '@/components/Button.vue';
+import TagHelper from '@/mixins/TagHelper';
+import {mixins} from 'vue-class-component';
+
 
 
 
 @Component({
-  components: {Button}
+  components: {Button},
+  computed:{
+    tags(){
+      return this.$store.state.tagList;
+    },
+  }
 })
-export default class Labels extends Vue {
-  //TODO
-  tags = [];//知识点1：读在windows上写
-//类型检查
-  createTag(){
-    const name = window.prompt("请输入标签名");
-    if(name) {
-      //TODO
-      //store.createTag(name);
-    }
+export default class Labels extends mixins(TagHelper) {
+  beforeCreate(){
+    //每次切标签就重新fetch一遍
+    this.$store.commit('fetchTags');
   }
 }
 </script>

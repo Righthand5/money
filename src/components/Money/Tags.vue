@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button @click="create">新增标签</button>
+      <button @click="createTag">新增标签</button>
     </div>
     <!--      由于我们使用的是scope的所以名字取得规范一点-->
     <ul class="current">
@@ -16,6 +16,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator'
+import {mixins} from 'vue-class-component';
+import TagHelper from '@/mixins/TagHelper';
 
 @Component({
   computed:{
@@ -24,7 +26,7 @@ import {Component} from 'vue-property-decorator'
     }
   }
 })
- export default class Tags extends Vue{
+ export default class Tags extends mixins(TagHelper){
 
   selectedTags: string[] = [];
   created(){
@@ -39,12 +41,7 @@ import {Component} from 'vue-property-decorator'
     }
     this.$emit('update:value',this.selectedTags)
   }
-  create(){
-    const name = window.prompt('请输入标签名');
-    if(!name){ return window.alert('标签名不可以为空'); }
-    this.$store.commit('createTag',name);
-    //store.createTag(name)
-  }
+
 
 }
 </script>
