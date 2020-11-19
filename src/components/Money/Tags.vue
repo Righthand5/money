@@ -19,15 +19,17 @@ import {Component} from 'vue-property-decorator'
 
 @Component({
   computed:{
-    //TODO
     tagList(){
-      return [];
+      return this.$store.state.tagList;
     }
   }
 })
  export default class Tags extends Vue{
 
   selectedTags: string[] = [];
+  created(){
+    this.$store.commit('fetchTags');
+  }
   toggle(tag: string){
     const index = this.selectedTags.indexOf(tag);
     if(this.selectedTags.indexOf(tag)>=0) {
@@ -40,7 +42,7 @@ import {Component} from 'vue-property-decorator'
   create(){
     const name = window.prompt('请输入标签名');
     if(!name){ return window.alert('标签名不可以为空'); }
-    //TODO
+    this.$store.commit('createTag',name);
     //store.createTag(name)
   }
 
