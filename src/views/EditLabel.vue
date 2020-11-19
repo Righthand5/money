@@ -7,7 +7,7 @@
   </div>
   <div class = "from-wrapper">
   <FormItem :value="tag.name"
-            @update:value="updateTag"
+            @update:value="update"
             field-name="标签名" placeholder="请输入标签名"/>
   </div>
   <div class = "button-wrapper">
@@ -19,35 +19,31 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator'
-import tagListModel from '@/models/tagListModel';
 import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Button.vue';
+
 @Component({
   components: {Button, FormItem}
 })
 export default class EditLabel extends Vue{
-  tag?: { id: string;name: string } = undefined;//默认等于undefined，等拿到后赋值
+  tag?: Tag = undefined;//默认等于undefined，等拿到后赋值
   created(){
-    const id = this.$route.params.id;
-    tagListModel.fetch();
-    const tags = tagListModel.data;
-    //返回的是一个数组
-    const tag = tags.filter(t => t.id ===id)[0];
-    if(tag){
-        this.tag = tag
-    }else{
-        this.$router.replace('/404')
+    this.tag = window.findTag(this.$route.params.id)
+    if(!this.tag){
+        //this.$router.replace('/404')
     }
   }
-  updateTag(name: string){
+  update(name: string){
     if (this.tag) {
-      tagListModel.update(this.tag.id, name);
+      window.updateTag(this.tag.id, name);
     }
   }
   remove(){
     if(this.tag) {
-      if(tagListModel.remove(this.tag.id)){
+      if(window.removeTag(this.tag.id)){
         this.$router.back();
+      }else{
+        window.alert('删除失败');
       }
     }
   }

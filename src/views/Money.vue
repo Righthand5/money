@@ -20,7 +20,6 @@ import Types from '@/components/Money/Types.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
 import recordListModel from '@/models/recordListModel';
-import tagListModel from '@/models/tagListModel';
 //const model = require('@/model.js');
 //只要在刚开始的时候写上断言-（as RecordItem）后面就会方便
 const recordList= recordListModel.fetch();
