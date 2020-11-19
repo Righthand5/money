@@ -14,15 +14,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
-import recordListModel from '@/models/recordListModel';
 //const model = require('@/model.js');
 //只要在刚开始的时候写上断言-（as RecordItem）后面就会方便
-const recordList= recordListModel.fetch();
 
 
 
@@ -32,7 +30,7 @@ const recordList= recordListModel.fetch();
 })
 export default class Money extends Vue {
   tags = window.tagList;
-  recordList: RecordItem[] = recordList;
+  recordList = window.recordList;
   record: RecordItem = {
     tags: [],
     notes: '',
@@ -49,12 +47,7 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    recordListModel.create(this.record);
-  }
-
-  @Watch('recordList')
-  onRecordListChange() {
-    recordListModel.save()
+    window.createRecord(this.record);
   }
 }
 </script>
