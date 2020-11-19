@@ -1,25 +1,25 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button @click="createTag">新增标签</button>
+      <button @click="create">新增标签</button>
     </div>
     <!--      由于我们使用的是scope的所以名字取得规范一点-->
     <ul class="current">
-      <li v-for="tag in dataSource" :key="tag.id"
+      <li v-for="tag in tagList" :key="tag.id"
           :class = "{selected:selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">{{tag.name}}
       </li>
-
     </ul>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component,Prop} from 'vue-property-decorator'
+import {Component} from 'vue-property-decorator'
+import store from '@/store/index2';
 @Component
  export default class Tags extends Vue{
-  @Prop() readonly dataSource: string[] | undefined;//我只可以装自负床
+  tagList = store.fetchTags();
   selectedTags: string[] = [];
   toggle(tag: string){
     const index = this.selectedTags.indexOf(tag);
@@ -30,15 +30,10 @@ import {Component,Prop} from 'vue-property-decorator'
     }
     this.$emit('update:value',this.selectedTags)
   }
-  createTag(){
+  create(){
     const name = window.prompt('请输入标签名');
-    if(name === ''){
-      window.alert('标签名不可以为空');
-    }else{
-      if(this.dataSource) {
-        this.$emit('update:dataSource',[...this.dataSource,name]);
-      }
-    }
+    if(!name){ return window.alert('标签名不可以为空'); }
+    store.createTag(name)
   }
 
 }
