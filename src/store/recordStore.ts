@@ -16,7 +16,7 @@ const recordStore={
         record2.createdAt = new Date();
         this.recordList && this.recordList.push(record2);
         recordStore.saveRecords();
-},
+    },
 };
 recordStore.fetchRecords();
 export default recordStore;
