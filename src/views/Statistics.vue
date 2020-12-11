@@ -11,10 +11,13 @@
   background: white;
   &.selected{
     background: #c4c4c4;
+    &::after{
+      display: none;
+    }
   }
-  &::after{
-  display: none;
 }
+::v-deep li.interval-tabs-item{
+  height: 48px;
 }
 </style>
 
