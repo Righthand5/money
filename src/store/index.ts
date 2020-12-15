@@ -52,13 +52,14 @@ const store =new Vuex.Store({
       }else{
         window.alert('删除失败');
       }
+
     },
     fetchRecords(state){
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
     createRecord(state, record){
         const record2: RecordItem = clone(record);
-        record2.createdAt = new Date();
+        record2.createdAt = new Date().toISOString();
         state.recordList.push(record2);
         //recordStore.saveRecords();
       store.commit('saveRecords')
