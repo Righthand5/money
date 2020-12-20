@@ -16,6 +16,7 @@ const store =new Vuex.Store({
 /*这样写可以知道currentTag可以是一个Tag也可以是一个undefined*/
   state: {
     recordList: [],
+    createRecordError:null,
     tagList: [],
     currentTag:undefined
   } as RootState,
@@ -56,20 +57,27 @@ const store =new Vuex.Store({
     },
     fetchRecords(state){
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
-    },
-    createRecord(state, record){
+
+      },
+    createRecord(state, record: RecordItem){
         const record2: RecordItem = clone(record);
         record2.createdAt = new Date().toISOString();
         state.recordList.push(record2);
         //recordStore.saveRecords();
-      store.commit('saveRecords')
+      store.commit('saveRecords');
     },
     saveRecords(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
     },
     fetchTags(state){
-      return state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
-    },
+      state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if(!state.tagList || state.tagList.length === 0){
+        store.commit('createTag','衣');
+        store.commit('createTag','食');
+        store.commit('createTag','住');
+        store.commit('createTag','行');
+      }
+      },
     createTag(state, name: string) {
       const names = state.tagList.map(item => item.name);
       if (names.indexOf(name) >= 0) {
