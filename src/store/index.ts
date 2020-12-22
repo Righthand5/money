@@ -6,17 +6,20 @@ import router from '@/router';
 
 Vue.use(Vuex)
 /*类型声明*/
-type  RootState = {
-  recordList: RecordItem[];
-  tagList: Tag[];
-  currentTag?: Tag;
-}
+// type  RootState = {
+//   createRecordError: Error | null,
+//   createTagsError: Error | null,
+//   recordList: RecordItem[];
+//   tagList: Tag[];
+//   currentTag?: Tag;
+// }
 
 const store =new Vuex.Store({
 /*这样写可以知道currentTag可以是一个Tag也可以是一个undefined*/
   state: {
     recordList: [],
     createRecordError:null,
+    createTagsError:null,
     tagList: [],
     currentTag:undefined
   } as RootState,
@@ -79,14 +82,15 @@ const store =new Vuex.Store({
       }
       },
     createTag(state, name: string) {
+      state.createTagsError = null;
       const names = state.tagList.map(item => item.name);
       if (names.indexOf(name) >= 0) {
-        window.alert('标签名重复');
+        state.createTagsError = new Error('tag name duplicated')
+        return;
       }
       const id = createId().toString();
       state.tagList.push({id, name: name});
       store.commit("saveTags");
-      window.alert('添加成功');
     },
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));

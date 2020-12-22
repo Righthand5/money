@@ -1,6 +1,6 @@
-.DS_Store
+.DS_Storegit remote add origin git@github.com:Righthand5/money.git
 node_modules
-/dist
+
 
 
 # local env files
